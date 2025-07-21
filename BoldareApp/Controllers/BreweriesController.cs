@@ -1,5 +1,5 @@
+using BoldareApp.Queries;
 using BoldareApp.Services.Interfaces;
-using BoldareApp.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

@@ -1,7 +1,7 @@
 ﻿using BoldareApp.Dto;
 using BoldareApp.Models;
+using BoldareApp.Queries;
 using BoldareApp.Services.Interfaces;
-using BoldareApp.Utils;
 using Microsoft.Extensions.Caching.Memory;
 using System.Text.Json;
 

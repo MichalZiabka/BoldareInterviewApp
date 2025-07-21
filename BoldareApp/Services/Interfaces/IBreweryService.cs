@@ -1,5 +1,5 @@
 ﻿using BoldareApp.Dto;
-using BoldareApp.Utils;
+using BoldareApp.Queries;
 
 namespace BoldareApp.Services.Interfaces
 {
