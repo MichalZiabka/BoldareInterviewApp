@@ -1,6 +1,6 @@
 using BoldareApp.Services.Interfaces;
+using BoldareApp.Utils;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OData.Query;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace BoldareApp.Controllers
@@ -22,36 +22,60 @@ namespace BoldareApp.Controllers
             _breweryService = breweryService;
         }
 
-        [HttpGet]
+        [HttpGet("filter")]
         [MapToApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [SwaggerOperation(Summary = "Gets a list of breweries", Description = "Returns a list of breweries from the database.")]
-        public async Task<IActionResult> GetV1()
+        [SwaggerOperation(Summary = "Gets a list of breweries", Description = "Returns a list of breweries from source.")]
+        public async Task<IActionResult> GetByFilterV1()
         {
             var data = await _breweryService.GetBreweriesAsync();
             return Ok(data);
         }
 
-        [HttpGet]
-        [EnableQuery]
+        [HttpGet("filter")]
         [MapToApiVersion("2.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [SwaggerOperation(Summary = "Gets a list of breweries", Description = "Returns a list of breweries from the database.")]
-        public async Task<IActionResult> GetV2([FromQuery] Localization? localization)
+        [SwaggerOperation(Summary = "Gets a list of breweries", Description = "Returns a list of breweries from source with filtering and pagination.")]
+        public async Task<IActionResult> GetByFilterV2([FromQuery] FilterQuery query)
         {
-            var data = await _breweryService.GetBreweriesAsync(localization);
-            return Ok(data.AsQueryable());
+            var data = await _breweryService.GetBreweriesAsync(query);
+            return Ok(data);
         }
-    }
 
+        [HttpGet("nearby")]
+        [MapToApiVersion("2.0")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Summary = "Gets a list of breweries", Description = "Gets a list of breweries by distance from an origin point.")]
+        public async Task<IActionResult> GetByLocation([FromQuery] DistanceQuery query)
+        {
+            var data = await _breweryService.GetBreweriesAsync(query);
+            return Ok(data);
+        }
 
-    public class Localization
-    {
-        public int Latitude { get; set; }
+        [HttpGet("autocomplete")]
+        [MapToApiVersion("2.0")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Summary = "Gets a list of breweries", Description = "Gets a list of breweries by autocomplete search term.")]
+        public async Task<IActionResult> GetByAutocomplete([FromQuery] AutocompleteQuery query)
+        {
+            var data = await _breweryService.GetBreweriesAsync(query);
+            return Ok(data);
+        }
 
-        public int Longitude { get; set; }
+        [HttpGet("search")]
+        [MapToApiVersion("2.0")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Summary = "Gets a list of breweries", Description = "Gets a list of breweries by search term.")]
+        public async Task<IActionResult> GetByAutocomplete([FromQuery] SearchQuery query)
+        {
+            var data = await _breweryService.GetBreweriesAsync(query);
+            return Ok(data);
+        }
     }
 }
 

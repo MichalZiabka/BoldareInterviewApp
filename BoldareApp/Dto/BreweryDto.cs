@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace BoldareApp.Dto
 {
     public record BreweryDto
     {
-        [Key]
+        [JsonPropertyName("Id")]
         public required string Id { get; init; }
 
         [JsonPropertyName("Name")]
@@ -16,8 +15,5 @@ namespace BoldareApp.Dto
 
         [JsonPropertyName("Phone")]
         public string? PhoneNumber { get; init; }
-
-        [JsonPropertyName("Distance")]
-        public double? Distance { get; init; }
     }
 }

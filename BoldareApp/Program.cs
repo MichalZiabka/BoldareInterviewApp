@@ -6,8 +6,8 @@ builder.Services
     .AddVersioning()
     .AddSwaggerVersioning()
     .AddMemoryCache()
-    .AddApiControllers()
-    .AddApiServices();
+    .AddApiServices()
+    .AddControllers();
 
 var app = builder.Build();
 

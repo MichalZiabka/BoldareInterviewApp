@@ -1,10 +1,12 @@
-﻿using BoldareApp.Controllers;
-using BoldareApp.Dto;
+﻿using BoldareApp.Dto;
+using BoldareApp.Utils;
 
 namespace BoldareApp.Services.Interfaces
 {
     public interface IBreweryService
     {
-        Task<IEnumerable<BreweryDto>> GetBreweriesAsync(Localization? localization = null);
+        Task<IEnumerable<BreweryDto>> GetBreweriesAsync();
+
+        Task<IEnumerable<BreweryDto>> GetBreweriesAsync(QueryBase queryFilter);
     }
 }

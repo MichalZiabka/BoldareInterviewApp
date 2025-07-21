@@ -2,7 +2,6 @@
 using BoldareApp.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.AspNetCore.OData;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -33,19 +32,9 @@ namespace BoldareApp.Infrastructure.Extensions
             services.AddSwaggerGen(options =>
             {
                 options.EnableAnnotations();
-                options.OperationFilter<ODataQueryOperationFilter>();
             });
             services.AddEndpointsApiExplorer();
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
-            return services;
-        }
-
-        public static IServiceCollection AddApiControllers(this IServiceCollection services)
-        {
-            services.AddControllers()
-            .AddOData(options =>
-                options.Select().Filter().OrderBy().Count().Expand().SkipToken().SetMaxTop(100)
-                    .AddRouteComponents("api/v1", ODataModel.GetEdmModel()));
             return services;
         }
 
