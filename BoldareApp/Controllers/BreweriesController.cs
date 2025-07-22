@@ -11,14 +11,10 @@ namespace BoldareApp.Controllers
     [Route("api/v{version:apiVersion}/breweries")]
     public class BreweriesController : ControllerBase
     {
-        private readonly ILogger<BreweriesController> _logger;
         private readonly IBreweryService _breweryService;
 
-        public BreweriesController(
-            ILogger<BreweriesController> logger,
-            IBreweryService breweryService)
+        public BreweriesController(IBreweryService breweryService)
         {
-            _logger = logger;
             _breweryService = breweryService;
         }
 

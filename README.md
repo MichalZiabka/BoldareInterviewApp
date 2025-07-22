@@ -4,8 +4,19 @@ RESTful API to display a list of open breweries.
 
 ## Features
 
-## Technologies
-- .NET 9
+- implemented in memory storage
+- implemented classes and interfaces
+- implemented dependency injection
+- implemented sorting by brewerey name and city in asc and desc order
+- implemented searching
+- implemented autocomplete
+- implemented mapping to generic model
+- implemented caching api results for 10 minutes
+- implemented with SOLID principles
+- implemented error handling
+- implemented API versioning
+- implemented logging to console and file
 
-## How to Run project
-
+## How to run
+- Build and run project
+- go to `https://localhost:7288/swagger/index.html`

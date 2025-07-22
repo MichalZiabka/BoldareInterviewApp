@@ -1,4 +1,5 @@
-﻿using BoldareApp.Services;
+﻿using BoldareApp.Infrastructure.Swagger;
+using BoldareApp.Services;
 using BoldareApp.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;

@@ -1,9 +1,13 @@
-﻿namespace BoldareApp.Queries
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BoldareApp.Queries
 {
     public class FilterQuery : PaginatedQueryBase
     {
+        [MinLength(3, ErrorMessage = "Parameter must be at least 3 characters long")]
         public string? Name { get; init; }
 
+        [MinLength(3, ErrorMessage = "Parameter must be at least 3 characters long")]
         public string? City { get; init; }
 
         public string? Sort { get; init; } = "name";
