@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
+﻿using BoldareApp.Infrastructure.DbCache;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.EntityFrameworkCore;
 
 namespace BoldareApp.Infrastructure.Extensions
 {
@@ -16,6 +18,17 @@ namespace BoldareApp.Infrastructure.Extensions
                     options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"Brewery API {description.GroupName.ToUpper()}");
                 }
             });
+
+            return app;
+        }
+
+        public static IApplicationBuilder UseDbCache(this WebApplication app)
+        {
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<DbCacheContext>();
+                db.Database.Migrate();
+            }
 
             return app;
         }

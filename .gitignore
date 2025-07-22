@@ -482,3 +482,6 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+/BoldareApp/brewerycache.db
+/BoldareApp/brewerycache.db-shm
+/BoldareApp/brewerycache.db-wal

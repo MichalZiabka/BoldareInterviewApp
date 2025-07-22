@@ -17,6 +17,7 @@ builder.Services
     .AddMemoryCache()
     .AddApiServices()
     .AddJwtAutorization(builder.Configuration)
+    .AddDbCache(builder.Configuration)
     .AddControllers();
 
 var app = builder.Build();
@@ -32,4 +33,5 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization(); ;
 app.MapControllers();
+app.UseDbCache();
 app.Run();

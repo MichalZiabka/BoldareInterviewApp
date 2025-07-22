@@ -1,9 +1,11 @@
 ﻿using BoldareApp.Infrastructure.Configuration;
+using BoldareApp.Infrastructure.DbCache;
 using BoldareApp.Infrastructure.Swagger;
 using BoldareApp.Services;
 using BoldareApp.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -84,6 +86,15 @@ namespace BoldareApp.Infrastructure.Extensions
                     };
                 });
             services.AddAuthorization();
+            return services;
+        }
+
+        public static IServiceCollection AddDbCache(this IServiceCollection services, IConfiguration configuration)
+        {
+            var dbCacheConfiguration = configuration.GetSection("DatabaseCache").Get<DbCacheSettings>();
+
+            services.AddDbContext<DbCacheContext>(options =>
+                options.UseSqlite(dbCacheConfiguration!.ConnectionString));
             return services;
         }
 
