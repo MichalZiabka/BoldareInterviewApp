@@ -1,4 +1,5 @@
-﻿using BoldareApp.Infrastructure.Swagger;
+﻿using BoldareApp.Infrastructure.Configuration;
+using BoldareApp.Infrastructure.Swagger;
 using BoldareApp.Services;
 using BoldareApp.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -63,8 +64,10 @@ namespace BoldareApp.Infrastructure.Extensions
             return services;
         }
 
-        public static IServiceCollection AddJwtAutorization(this IServiceCollection services)
+        public static IServiceCollection AddJwtAutorization(this IServiceCollection services, IConfiguration configuration)
         {
+            var jwtSettings = configuration.GetSection("JwtSettings").Get<JwtSettings>();
+
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>
                 {
@@ -74,10 +77,10 @@ namespace BoldareApp.Infrastructure.Extensions
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        ValidIssuer = "BoldareApp",
-                        ValidAudience = "BoldareAppClient",
+                        ValidIssuer = jwtSettings!.Issuer,
+                        ValidAudience = jwtSettings.Audience,
                         IssuerSigningKey = new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes("your-super-secret-key-which-is-long-enough"))
+                            Encoding.UTF8.GetBytes(jwtSettings.Key))
                     };
                 });
             services.AddAuthorization();

@@ -1,5 +1,7 @@
-﻿using BoldareApp.Infrastructure.Exceptions;
+﻿using BoldareApp.Infrastructure.Configuration;
+using BoldareApp.Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -12,6 +14,13 @@ namespace BoldareApp.Controllers
     [Route("api/v{version:apiVersion}/authorization")]
     public class AuthController : ControllerBase
     {
+        private readonly JwtSettings jwtSettings;
+
+        public AuthController(IOptions<JwtSettings> jwtSettings)
+        {
+            this.jwtSettings = jwtSettings.Value;
+        }
+
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
@@ -26,14 +35,14 @@ namespace BoldareApp.Controllers
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your-super-secret-key-which-is-long-enough"));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: "BoldareApp",
-                audience: "BoldareAppClient",
+                issuer: jwtSettings.Issuer,
+                audience: jwtSettings.Audience,
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(60),
+                expires: DateTime.UtcNow.AddMinutes(jwtSettings.ExpiresMinutes),
                 signingCredentials: creds);
 
             return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
