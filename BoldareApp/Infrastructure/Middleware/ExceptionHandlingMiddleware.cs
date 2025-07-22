@@ -48,6 +48,15 @@ namespace BoldareApp.Infrastructure.Middleware
                     level: LogLevel.Warning,
                     exception: exception
                 ),
+                UnauthorizedException => CreateProblemDetailsAndLog(
+                    type: "https://httpstatuses.com/401",
+                    title: "Unauthorized",
+                    detail: exception.Message,
+                    status: 401,
+                    instance: context.Request.Path,
+                    level: LogLevel.Warning,
+                    exception: exception
+                ),
                 ArgumentException => CreateProblemDetailsAndLog(
                     type: "https://httpstatuses.com/400",
                     title: "Bad request",

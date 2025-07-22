@@ -1,5 +1,6 @@
 using BoldareApp.Queries;
 using BoldareApp.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -30,6 +31,7 @@ namespace BoldareApp.Controllers
         }
 
         [HttpGet("filter")]
+        [Authorize]
         [MapToApiVersion("2.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -41,6 +43,7 @@ namespace BoldareApp.Controllers
         }
 
         [HttpGet("nearby")]
+        [Authorize]
         [MapToApiVersion("2.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -52,6 +55,7 @@ namespace BoldareApp.Controllers
         }
 
         [HttpGet("autocomplete")]
+        [Authorize]
         [MapToApiVersion("2.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -63,6 +67,7 @@ namespace BoldareApp.Controllers
         }
 
         [HttpGet("search")]
+        [Authorize]
         [MapToApiVersion("2.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

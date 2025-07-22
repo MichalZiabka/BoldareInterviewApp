@@ -16,7 +16,9 @@ RESTful API to display a list of open breweries.
 - implemented error handling
 - implemented API versioning
 - implemented logging to console and file
+- implemented authorization with JWT Bearer token
 
 ## How to run
 - Build and run project
 - go to `https://localhost:7288/swagger/index.html`
+- to authorize use login endpoint with user: "admin" and password: "password". Use returned token to authorize in swagger in "Bearer {{token}}" format

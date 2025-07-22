@@ -9,6 +9,7 @@ builder.Services
     .AddSwaggerVersioning()
     .AddMemoryCache()
     .AddApiServices()
+    .AddJwtAutorization()
     .AddControllers();
 
 builder.Host.UseSerilog((context, configuration) =>
@@ -24,6 +25,7 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
-app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization(); ;
 app.MapControllers();
 app.Run();
