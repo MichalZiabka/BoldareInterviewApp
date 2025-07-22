@@ -17,6 +17,7 @@ RESTful API to display a list of open breweries.
 - implemented API versioning
 - implemented logging to console and file
 - implemented authorization with JWT Bearer token
+- implemented database cache
 
 ## How to run
 - Build and run project
